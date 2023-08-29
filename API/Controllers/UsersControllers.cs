@@ -1,32 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using API.Data;
+using API.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
-namespace API.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class UsersController : ControllerBase
 {
-    [Route("[controller]")]
-    public class UsersControllers : Controller
+    private readonly DataContext _context;
+    public UsersController(DataContext context)
     {
-        private readonly ILogger<UsersControllers> _logger;
+       _context = context;
+    }
 
-        public UsersControllers(ILogger<UsersControllers> logger)
-        {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
-        }
+    [HttpGet]
+    public ActionResult<IEnumerable<AppUser>> GetUsers()
+    {
+        var users = _context.Users.ToList();
+        return users;
     }
 }
