@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { R3SelectorScopeMode } from '@angular/compiler';
+import { Observable, of } from 'rxjs';
+import { IUser } from '../_models/users';
 
 @Component({
   selector: 'app-nav',
@@ -9,26 +11,18 @@ import { R3SelectorScopeMode } from '@angular/compiler';
 })
 export class NavComponent implements OnInit{
   model: any= {};
-  loggedIn= false;
+  //currentUser$: Observable<IUser | null > = of(null);
 
-  constructor(private accountService: AccountService){}
+  constructor(public accountService: AccountService){}
 
   ngOnInit(): void{
-    this.getCurrentUser(); 
-  }
-
-  getCurrentUser(){
-    this.accountService.currentUser$.subscribe({
-      next: user => this.loggedIn = !!user,
-      error: error => console.log(error)
-    });
+   // this.currentUser$ = this.accountService.currentUser$; 
   }
   
   login(): void{
     this.accountService.login(this.model).subscribe({
       next:(response) => {
         console.log(response);
-        this.loggedIn = true;
       },
       error: error=> {console.log(error)}
     })
@@ -36,6 +30,5 @@ export class NavComponent implements OnInit{
 
   logout(): void{
     this.accountService.logout();
-    this.loggedIn = false;
   }
 }
