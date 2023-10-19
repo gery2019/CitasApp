@@ -1,4 +1,5 @@
 using System.Text;
+using API;
 using API.Data;
 using API.Extensions;
 using API.Interfaces;
@@ -18,6 +19,7 @@ builder.Services.AddIdentityServices(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
 app.UseHttpsRedirection();
