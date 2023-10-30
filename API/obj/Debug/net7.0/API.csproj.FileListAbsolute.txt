@@ -132,3 +132,4 @@ C:\Users\Administrator\Documents\9o Semestre\SW\CitasApp\API\bin\Debug\net7.0\Sy
 C:\Users\Administrator\Documents\9o Semestre\SW\CitasApp\API\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Administrator\Documents\9o Semestre\SW\CitasApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\Administrator\Documents\9o Semestre\SW\CitasApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Administrator\Documents\9o Semestre\SW\CitasApp\API\bin\Debug\net7.0\Data\UserSeedData.json
