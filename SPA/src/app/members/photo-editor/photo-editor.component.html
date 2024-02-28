@@ -1,4 +1,4 @@
-<div class="row" *ngIf="member">
+<div class="row mb-3" *ngIf="member">
     <div class="col-2" *ngFor="let photo of member.photos">
         <img src="{{photo.url}}" alt="photo of user" class="img-thumbnail mb-1">
         <div class="text-center">
@@ -16,7 +16,8 @@
              [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
              (fileOver)="fileOverBase($event)"
              [uploader]="uploader"
-             class="well my-drop-zone">
+             class="card bg-faded p-3 text-center mb-3 my-drop-zone">
+             <i class="fa fa-upload fa-3x"></i>
             Arrastra tus archivos aqui
         </div>
 
