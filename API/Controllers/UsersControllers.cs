@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 [Authorize]
 public class UsersController : BaseApiController
 {
+    #region Private vars
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
     private readonly IPhotoService _photoService;
@@ -21,6 +22,7 @@ public class UsersController : BaseApiController
         _mapper = mapper;
         _photoService = photoService;
     }
+    #endregion
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
@@ -71,5 +73,23 @@ public class UsersController : BaseApiController
             _mapper.Map<PhotoDto>(photo));
         }
         return BadRequest("No se pudo subir la foto");
+    }
+    [HttpPut("Photo/{photoId}")]
+    public async Task<ActionResult> SetMainPhoto(int photoId)
+    {
+        var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+        if(user == null) return NotFound("No se encontró el usuario");
+
+        var newMain = user.Photos.FirstOrDefault(photo => photo.Id == photoId);
+        if(newMain == null) return NotFound("No se encontró la foto");
+        if(newMain.IsMain) return BadRequest("Esta ya es tu foto principal");
+
+        var currentMain = user.Photos.FirstOrDefault(photo => photo.IsMain);
+        if(currentMain != null) currentMain.IsMain = false;
+        newMain.IsMain = true;
+
+        if(await _userRepository.SaveAllAsync()) return NoContent();
+        
+        return BadRequest("No se pudo realizar la operación");
     }
 }
