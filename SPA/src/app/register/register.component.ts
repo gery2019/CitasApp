@@ -84,6 +84,7 @@ export class RegisterComponent implements OnInit {
   private getDateOnly(dob: string | undefined){
     if(!dob) return;
     let newDob = new Date(dob);
-    return new Date(newDob.setMinutes(newDob.getMinutes()-newDob.getTimezoneOffset()).toString().slice(0, 10));
+    return new Date(newDob.setMinutes(newDob.getMinutes() - newDob.getTimezoneOffset()))
+      .toISOString().slice(0, 10);
   }
 }
